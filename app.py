@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+mport os
 import random
 import uuid
 
@@ -10,7 +10,7 @@ from PIL import Image
 import torch
 from diffusers import DiffusionPipeline
 
-DESCRIPTION = """# Playground v2"""
+DESCRIPTION = """# OUR "BETA" SD APP"""
 if not torch.cuda.is_available():
     DESCRIPTION += "\n<p>Running on CPU 🥶 This demo may not work on CPU.</p>"
 
@@ -60,8 +60,8 @@ def generate(
     negative_prompt: str = "",
     use_negative_prompt: bool = False,
     seed: int = 0,
-    width: int = 1024,
-    height: int = 1024,
+    width: int = 600,
+    height: int = 600,
     guidance_scale: float = 3,
     randomize_seed: bool = False,
     use_resolution_binning: bool = True,
@@ -93,19 +93,15 @@ def generate(
 
 
 examples = [
-    "neon holography crystal cat",
-    "a cat eating a piece of cheese",
-    "an astronaut riding a horse in space",
-    "a cartoon of a boy playing with a tiger",
-    "a cute robot artist painting on an easel, concept art",
-    "a close up of a woman wearing a transparent, prismatic, elaborate nemeses headdress, over the should pose, brown skin-tone"
+    "18 yo  girl , full figure pose, smiling, only wearing a denim shorts, topless, medium breasts,  perfect teeth,  super realistic, perfect teen body, perfect detailed, nsfw, onlyfan, perfect  teen body ",
+    
 ]
 
 css = '''
-.gradio-container{max-width: 560px !important}
+.gradio-container{max-width: 1200px !important}
 h1{text-align:center}
 '''
-with gr.Blocks(css=css) as demo:
+with gr.Blocks(theme='ParityError/Anime') as demo:
     gr.Markdown(DESCRIPTION)
     gr.DuplicateButton(
         value="Duplicate Space for private use",
@@ -117,7 +113,7 @@ with gr.Blocks(css=css) as demo:
             prompt = gr.Text(
                 label="Prompt",
                 show_label=False,
-                max_lines=1,
+                max_lines=10,
                 placeholder="Enter your prompt",
                 container=False,
             )
@@ -128,7 +124,7 @@ with gr.Blocks(css=css) as demo:
             use_negative_prompt = gr.Checkbox(label="Use negative prompt", value=False)
             negative_prompt = gr.Text(
                 label="Negative prompt",
-                max_lines=1,
+                max_lines=10,
                 placeholder="Enter a negative prompt",
                 visible=True,
             )
@@ -139,21 +135,21 @@ with gr.Blocks(css=css) as demo:
             step=1,
             value=0,
         )
-        randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
+        randomize_seed = gr.Checkbox(label="Randomize seed", value=False)
         with gr.Row(visible=True):
             width = gr.Slider(
                 label="Width",
                 minimum=256,
                 maximum=MAX_IMAGE_SIZE,
                 step=32,
-                value=1024,
+                value=800,
             )
             height = gr.Slider(
                 label="Height",
                 minimum=256,
                 maximum=MAX_IMAGE_SIZE,
                 step=32,
-                value=1024,
+                value=1200,
             )
         with gr.Row():
             guidance_scale = gr.Slider(
